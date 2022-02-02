@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask_login import UserMixin
-from . import db, login_manager
+from src import db, login_manager
 from werkzeug.security import generate_password_hash
 
 
