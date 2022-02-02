@@ -104,7 +104,6 @@ def submit():
         session.commit()
 
 
-
 @app.after_request
 def redirect_to_login(response):
     if response.status_code == 401:
