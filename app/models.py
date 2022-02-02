@@ -58,6 +58,15 @@ class LabelPoint(db.Model):
         self.x = x
         self.y = y
 
+    @property
+    def serialize(self):
+        return {
+            'username': self.username,
+            'label': self.label,
+            'x': self.x,
+            'y': self.y
+        }
+
     def __repr__(self):
         return '<LabelPoint({}, {}, {}, {})>'.format(self.username, self.label, self.x, self.y)
 
