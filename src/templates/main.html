@@ -1,22 +1,11 @@
 {% extends "base.html" %}
 
 {% block nav %}
-<div class="hero-head">
-    <nav class="navbar">
-        <div class="container">
-            <div id="navbarMenuHeroA" class="navbar-menu">
-                <div class="navbar-end">
-                    <a href="{{ url_for('hello_world') }}" class="navbar-item">
-                        Home
-                    </a>
-                    <a href="{{ url_for('logout') }}" class="navbar-item">
-                        Logout
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+    </li>
+</ul>
 {% endblock %}
 
 {% block content %}

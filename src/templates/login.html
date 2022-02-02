@@ -1,21 +1,12 @@
 {% extends "base.html" %}
 
 {% block nav %}
-<div class="hero-head">
-    <nav class="navbar">
-        <div class="container">
-            <div id="navbarMenuHeroA" class="navbar-menu">
-                <div class="navbar-end">
-                    <a href="{{ url_for('signup') }}" class="navbar-item">
-                        Sign Up
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('signup') }}">SignUp</a>
+    </li>
+</ul>
 {% endblock %}
-
 
 {% block content %}
 <div class="container">
@@ -32,7 +23,7 @@
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <form action="" method="post" name="login" class="row g-4">
             {{form.hidden_tag()}}
-            <div class="form-floating text-center">
+            <div class="form-floating mb-1 text-center">
                 {{form.username(class="form-control", placeholder="Username")}}
                 <label class="mx-2" for="username">Username</label>
             </div>
@@ -40,7 +31,7 @@
                 {{form.password(type="password", class="form-control", placeholder="Password")}}
                 <label class="mx-2" for="password">Password</label>
             </div>
-            <div class="col-12">
+            <div>
                 {{form.submit(class_="btn btn-dark")}}
             </div>
         </form>

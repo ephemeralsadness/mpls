@@ -1,19 +1,11 @@
 {% extends "base.html" %}
 
 {% block nav %}
-<div class="hero-head">
-    <nav class="navbar">
-        <div class="container">
-            <div id="navbarMenuHeroA" class="navbar-menu">
-                <div class="navbar-end">
-                    <a href="{{ url_for('login') }}" class="navbar-item">
-                        Login
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-</div>
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+    </li>
+</ul>
 {% endblock %}
 
 {% block content %}
