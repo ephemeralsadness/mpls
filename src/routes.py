@@ -9,6 +9,11 @@ from copy import deepcopy
 import json
 
 
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
+
 @app.route('/')
 @login_required
 def hello_world():
