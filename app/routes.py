@@ -1,22 +1,6 @@
-from sqlalchemy import (
-    insert, 
-    Table, 
-    MetaData, 
-    Column,
-    Integer,
-    String,
-    Float
-    )
-
-from sqlalchemy.orm import mapper, Session
-
-from app import app, db, engine
+from app import app, db
 from app.models import Users, DataBit
 import app.forms as forms
-
-from app import libs
-
-from datetime import datetime
 
 from flask import request, render_template, redirect, url_for, flash
 from flask_login import current_user, login_required, login_user, logout_user
@@ -26,7 +10,7 @@ from werkzeug.security import check_password_hash
 @app.route('/')
 @login_required
 def hello_world():
-    return render_template('main.html')
+    return render_template('main.html', username=current_user)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -77,32 +61,11 @@ def signup():
 @app.route('/submit', methods=['POST'])
 @login_required
 def submit():
-    time = datetime.now().timestamp()
-    username = current_user
+    username = current_user.username
     data = request.form.get('data', "{}")
     
-    table_name = libs.get_next_table(time)
-    
-    if not engine.dialect.has_table(engine, table_name):
-        metadata = MetaData(engine)
-        
-        Table(table_name, metadata,
-              Column('Id', Integer, primary_key=True, nullable=False),
-              Column('Username', String, nullable=False),
-              Column('Data', String),
-              Column('TimeStamp', Float),
-        )
-        
-        metadata.create_all()
-    
-    mapper(DataBit, table_name)
-    
-    databit = DataBit(username, time, data)
-    
-    with Session(engine) as session:
-        session.add(databit)
-        session.commit()
-
+    db.session.add(DataBit(username, data))
+    db.session.commit()
 
 @app.after_request
 def redirect_to_login(response):

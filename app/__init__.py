@@ -7,7 +7,6 @@ app = Flask(__name__)
 app.config.from_object('app.config.Config')
 
 db = SQLAlchemy(app)
-engine = create_engine('sqlite:////database.db')
 login_manager = LoginManager(app)
 
 from . import routes

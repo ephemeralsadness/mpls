@@ -35,9 +35,8 @@ class DataBit(db.Model):
     timestamp = db.Column(db.Float, default=datetime.now().timestamp())
     data = db.Column(db.String(2048))
     
-    def __init__(self, username, timestamp, data):
+    def __init__(self, username, data):
         self.username = username
-        self.timestamp = timestamp
         self.data = data
 
     def __repr__(self):
