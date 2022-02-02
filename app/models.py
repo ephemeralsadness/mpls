@@ -48,10 +48,9 @@ class LabelPoint(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), nullable=False)
-    plot_name = db.Column(db.String(64), nullable=False)
-    plot_type = db.Column(db.String(64), nullable=False)
-    timestamp = db.Column(db.Float)
-    value = db.Column(db.Float)
+    label = db.Column(db.String(64), nullable=False)
+    x = db.Column(db.Float)
+    y = db.Column(db.Float)
 
 
 @login_manager.user_loader
