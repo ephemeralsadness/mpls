@@ -37,9 +37,25 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    ...
+    form = forms.SignUp()
+    
+    if request.method == 'POST' and form.validate_on_submit():
+        username = form.data['username']
+        password = form.data['password']
+        code = form.data['code']
+        
+        if code == 'TEST':
+            db.session.add(Users(username, password))
+            db.session.commit()
+            user = db.session.query(Users).filter_by(username=username).first()
+            login_user(user)
+            return redirect(url_for('hello_world'))
+        else:
+            flash('Incorrect invite code')
+            
+    return render_template('signup.html', form=form)
 
 
 @app.after_request

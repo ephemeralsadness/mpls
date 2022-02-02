@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="d-flex align-items-center justify-content-center alert alert-danger" role="alert">
+            {{message}}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
+        <form action="" method="post" name="login" class="row g-4">
+            {{form.hidden_tag()}}
+            <div class="form-floating text-center">
+                {{form.username(class="form-control", placeholder="Username")}}
+                <label class="mx-2" for="username">Username</label>
+            </div>
+            <div class="form-floating">
+                {{form.password(type="password", class="form-control", placeholder="Password")}}
+                <label class="mx-2" for="password">Password</label>
+            </div>
+            <div class="form-floating">
+                {{form.code(class="form-control", placeholder="Invite Code")}}
+                <label class="mx-2" for="code">Invite Code</label>
+            </div>
+            <div class="col-12">
+                {{form.submit(class_="btn btn-dark")}}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
