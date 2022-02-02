@@ -11,3 +11,7 @@ def round_up_datetime(dt: datetime, delta: timedelta):
 
 def get_last_table(delta):
     return round_down_datetime(datetime.now(), delta).strftime('%Y-%m-%dT%H:%M')
+
+
+def get_next_table(delta):
+    return round_up_datetime(datetime.now(), delta).strftime('%Y-%m-%dT%H:%M')
