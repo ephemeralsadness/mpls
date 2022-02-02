@@ -1,6 +1,6 @@
-from app import app, db
-from app.models import Users, DataBit, LabelPoint
-import app.forms as forms
+from src import app, db
+from src.models import Users, DataBit, LabelPoint
+import src.forms as forms
 
 from flask import request, render_template, redirect, url_for, flash
 from flask_login import current_user, login_required, login_user, logout_user

@@ -1,7 +1,7 @@
 # converts data from database tables to the list of data for aggregation
-from app import db
-from app.libs import round_down_datetime, round_up_datetime
-from app.models import DataBit, LabelPoint
+from src import db
+from src.libs import round_down_datetime, round_up_datetime
+from src.models import DataBit, LabelPoint
 
 import numpy as np
 import json
