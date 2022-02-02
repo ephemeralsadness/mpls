@@ -22,14 +22,10 @@ var getData = () => {
 					},
 					options: {
 						responsive: true,
-						title: {
-							display: false,
-							text: "TesT",
-						},
 						plugins: {
 							title: {
 								display: true,
-								text: 'Test'
+								text: ''
 							},
 							legend: {
 								position: null,
@@ -40,6 +36,7 @@ var getData = () => {
 
 				line.data.labels = data.labels;
 				line.data.datasets = data.data;
+				line.options.plugins.title.text = i;
 				line.data.datasets[0].borderColor = '#ff4747';
 				line.data.datasets[0].backgroundColor = '#ff4747';
 				line.data.datasets[0].tension = 0.4;
