@@ -78,7 +78,6 @@ def convert(delta):
             x = upper_bound
             y = ag.process(data)
             points.append(LabelPoint(username, label + '.' + ag.name(), x, y))
-    print('Points {}'.format(len(points)))
 
     for point in points:
         db.session.add(point)
