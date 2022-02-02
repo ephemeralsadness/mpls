@@ -12,6 +12,6 @@ login_manager = LoginManager(app)
 
 
 from plot import Scheduler, convert
-s = Scheduler(timedelta(minutes=5)).add_job(convert, [timedelta(minutes=5)])
+s = Scheduler(timedelta(seconds=20)).add_job(convert, [timedelta(seconds=20)])
 
 from . import routes

@@ -25,7 +25,7 @@ class QuantileAG(AG):
         return 'quantile-{}'.format(self.q)
 
 
-class MaxAG:
+class MaxAG(AG):
     def process(self, data):
         return max(data)
 
@@ -33,7 +33,7 @@ class MaxAG:
         return 'max'
 
 
-class MinAG:
+class MinAG(AG):
     def process(self, data):
         return min(data)
 
@@ -41,7 +41,7 @@ class MinAG:
         return 'min'
 
 
-class AverageAG:
+class AverageAG(AG):
     def process(self, data):
         return np.average(data)
 
@@ -52,15 +52,16 @@ class AverageAG:
 def convert(delta):
     lower_bound = round_down_datetime(datetime.now() - delta, delta)
     ags = [
-        QuantileAG(10.0),
-        QuantileAG(90.0),
-        QuantileAG(50.0),
-        MaxAG,
-        MinAG,
-        AverageAG,
+        QuantileAG(0.1),
+        QuantileAG(0.9),
+        QuantileAG(0.5),
+        MaxAG(),
+        MinAG(),
+        AverageAG(),
     ]
 
-    upper_bound = lower_bound + delta
+    upper_bound = (lower_bound + delta).timestamp()
+    lower_bound = lower_bound.timestamp()
     data_bits = db.session.query(DataBit).filter(
         (lower_bound <= DataBit.timestamp) & (DataBit.timestamp < upper_bound)
     )
@@ -76,10 +77,12 @@ def convert(delta):
         for ag in ags:
             x = upper_bound
             y = ag.process(data)
-            points.append(LabelPoint(username, label, x, y))
+            points.append(LabelPoint(username, label + '.' + ag.name(), x, y))
+    print('Points {}'.format(len(points)))
 
     for point in points:
         db.session.add(point)
+    db.session.commit()
 
 
 

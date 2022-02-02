@@ -77,7 +77,7 @@ def submit():
         db.session.commit()
         return 'Added!'
     else:
-        return 'Bad login data'
+        return 'Bad!'
 
 
 @app.route('/plot', methods=['GET'])
