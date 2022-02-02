@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask_login import UserMixin
 from . import db, login_manager
 from werkzeug.security import generate_password_hash
@@ -26,16 +27,26 @@ class Users(UserMixin, db.Model):
         return '<User %r>' % self.username
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return Users.query.get(user_id)
+class DataBit(db.Model):
+    __tablename__ = 'databit'
 
-
-class DataBit:
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(255), nullable=False)
+    timestamp = db.Column(db.Float, default=datetime.now().timestamp())
+    data = db.Column(db.String(2048))
+    
     def __init__(self, username, timestamp, data):
         self.username = username
         self.timestamp = timestamp
         self.data = data
 
     def __repr__(self):
-        return 'DataBit({}, {}, {})'.format(self.username, self.timestamp, self.data)
+        return '<DataBit %r>' % self.data
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(user_id)
+
+
+
