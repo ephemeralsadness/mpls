@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from src import app, db
 from src.models import Users, DataBit, LabelPoint
 import src.forms as forms
@@ -73,7 +75,7 @@ def submit():
 
     user = db.session.query(Users).filter_by(username=username).first()
     if user and check_password_hash(user.password, password):
-        db.session.add(DataBit(username, data))
+        db.session.add(DataBit(username, data, datetime.now().timestamp()))
         db.session.commit()
         return 'Added!'
     else:

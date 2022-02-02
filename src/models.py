@@ -32,15 +32,16 @@ class DataBit(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), nullable=False)
-    timestamp = db.Column(db.Float, default=datetime.now().timestamp())
+    timestamp = db.Column(db.Float)
     data = db.Column(db.String(2048))
     
-    def __init__(self, username, data):
+    def __init__(self, username, data, timestamp):
         self.username = username
         self.data = data
+        self.timestamp = timestamp
 
     def __repr__(self):
-        return '<DataBit %r>' % self.data
+        return '<DataBit({}, {}, {})>'.format(self.username, self.timestamp, self.data)
 
 
 class LabelPoint(db.Model):
