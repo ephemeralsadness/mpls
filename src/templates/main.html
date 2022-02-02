@@ -9,7 +9,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="w-25">
+<div class="w-50">
     <canvas id="line"></canvas>
 </div>
+<script type="module" src="{{ url_for('static', filename='linechart.js') }}" ></script>
 {% endblock %}

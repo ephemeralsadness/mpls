@@ -83,7 +83,7 @@ def plot():
         'labels': []
     }
 
-    data = dict()
+    data = {}
 
     for point in points:
         if point.label not in data:
@@ -92,7 +92,7 @@ def plot():
         data[point.label]['data'][0]['label'] = point.label
         data[point.label]['labels'].append(point.x)
 
-    return json.dumps(data)
+    return data
 
 
 @app.after_request
