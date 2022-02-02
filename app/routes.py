@@ -1,5 +1,5 @@
 from app import app, db
-from app.models import Users, DataBit
+from app.models import Users, DataBit, LabelPoint
 import app.forms as forms
 
 from flask import request, render_template, redirect, url_for, flash
@@ -66,6 +66,12 @@ def submit():
     
     db.session.add(DataBit(username, data))
     db.session.commit()
+
+
+@app.route('/plot', methods=['GET'])
+@login_required
+def plot():
+    return db.session.query(LabelPoint).filter_by(username=current_user.username).all()
 
 @app.after_request
 def redirect_to_login(response):
