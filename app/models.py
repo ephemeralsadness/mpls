@@ -22,7 +22,6 @@ class Users(UserMixin, db.Model):
             'password': self.password
         }
 
-
     def __repr__(self):
         return '<User %r>' % self.username
 
@@ -30,3 +29,13 @@ class Users(UserMixin, db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(user_id)
+
+
+class DataBit:
+    def __init__(self, username, timestamp, data):
+        self.username = username
+        self.timestamp = timestamp
+        self.data = data
+
+    def __repr__(self):
+        return 'DataBit({}, {}, {})'.format(self.username, self.timestamp, self.data)
