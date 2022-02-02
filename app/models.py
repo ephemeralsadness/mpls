@@ -8,7 +8,7 @@ class Users(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255), unique=True, nullable=False)
+    username = db.Column(db.String(64), unique=True, nullable=False)
     password = db.Column(db.String(512), nullable=False)
 
     def __init__(self, username, password):
@@ -31,7 +31,7 @@ class DataBit(db.Model):
     __tablename__ = 'databit'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255), nullable=False)
+    username = db.Column(db.String(64), nullable=False)
     timestamp = db.Column(db.Float, default=datetime.now().timestamp())
     data = db.Column(db.String(2048))
     
@@ -41,6 +41,17 @@ class DataBit(db.Model):
 
     def __repr__(self):
         return '<DataBit %r>' % self.data
+
+
+class LabelPoint(db.Model):
+    __tablename__ = 'labelpoint'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), nullable=False)
+    plot_name = db.Column(db.String(64), nullable=False)
+    plot_type = db.Column(db.String(64), nullable=False)
+    timestamp = db.Column(db.Float)
+    value = db.Column(db.Float)
 
 
 @login_manager.user_loader
