@@ -66,13 +66,18 @@ def signup():
 
 
 @app.route('/submit', methods=['POST'])
-@login_required
 def submit():
-    username = current_user.username
-    data = request.form.get('data', "{}")
-    
-    db.session.add(DataBit(username, data))
-    db.session.commit()
+    username = request.form.get('username', '{}')
+    password = request.form.get('password', '{}')
+    data = request.form.get('data', '{}')
+
+    user = db.session.query(Users).filter_by(username=username).first()
+    if user and check_password_hash(user.password, password):
+        db.session.add(DataBit(username, data))
+        db.session.commit()
+        return 'Added!'
+    else:
+        return 'Bad login data'
 
 
 @app.route('/plot', methods=['GET'])
