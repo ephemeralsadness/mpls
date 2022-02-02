@@ -74,21 +74,25 @@ def submit():
 @login_required
 def plot():
     points = db.session.query(LabelPoint).filter_by(username=current_user.username).all()
-    ans = {
-        'data': [],
+
+    temp = {
+        'data': [{
+            'data': [],
+            'label': None
+        }],
         'labels': []
     }
 
-    for point in points:
-        y = {
-            'label': point.label,
-            'data': point.y
-        }
-        x = point.x
-        ans['data'].append(y)
-        ans['labels'].append(x)
+    data = dict()
 
-    return json.dumps(ans)
+    for point in points:
+        if point.label not in data:
+            data[point.label] = deepcopy(temp)
+        data[point.label]['data'][0]['data'].append(point.y)
+        data[point.label]['data'][0]['label'] = point.label
+        data[point.label]['labels'].append(point.x)
+
+    return json.dumps(data)
 
 
 @app.after_request
