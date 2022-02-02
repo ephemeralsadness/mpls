@@ -5,6 +5,8 @@ import src.forms as forms
 from flask import request, render_template, redirect, url_for, flash
 from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash
+from copy import deepcopy
+import json
 
 
 @app.route('/')
@@ -71,7 +73,23 @@ def submit():
 @app.route('/plot', methods=['GET'])
 @login_required
 def plot():
-    return db.session.query(LabelPoint).filter_by(username=current_user.username).all()
+    points = db.session.query(LabelPoint).filter_by(username=current_user.username).all()
+    ans = {
+        'data': [],
+        'labels': []
+    }
+
+    for point in points:
+        y = {
+            'label': point.label,
+            'data': point.y
+        }
+        x = point.x
+        ans['data'].append(y)
+        ans['labels'].append(x)
+
+    return json.dumps(ans)
+
 
 @app.after_request
 def redirect_to_login(response):
