@@ -52,6 +52,15 @@ class LabelPoint(db.Model):
     x = db.Column(db.Float)
     y = db.Column(db.Float)
 
+    def __init__(self, username, label, x, y):
+        self.username = username
+        self.label = label
+        self.x = x
+        self.y = y
+
+    def __repr__(self):
+        return '<LabelPoint({}, {}, {}, {})>'.format(self.username, self.label, self.x, self.y)
+
 
 @login_manager.user_loader
 def load_user(user_id):
