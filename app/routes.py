@@ -59,7 +59,6 @@ def signup():
 
 
 @app.route('/submit/', methods=['POST'])
-@login_required
 def submit():
     pass
 
