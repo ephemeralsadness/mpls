@@ -6,8 +6,10 @@ var getData = () => {
         success: function(data) {
 			var charts = document.getElementById('charts')
 			$.each(data, function(i, data) {
-				if ($('#' + i).length > 0) {
-					$('#' + i).remove();
+				var element =  document.getElementById(i);
+				if (typeof(element) != 'undefined' && element != null)
+				{
+				  	element.remove();
 				}
 				
 				var canvas = document.createElement('canvas');
@@ -34,11 +36,20 @@ var getData = () => {
 					}
 				})
 
+				var last_3_symbols = i.slice(-3)
+				var map = new Map();
+				map.set("age", "#7777FF")
+				map.set("max", "#FD5469")
+				map.set("min", "#CC8F57")
+				map.set("0.1", "#2F5604")
+				map.set("0.5", "#2F5604")
+				map.set("0.9", "#2F5604")
+
 				line.data.labels = data.labels;
 				line.data.datasets = data.data;
 				line.options.plugins.title.text = i;
-				line.data.datasets[0].borderColor = '#ff4747';
-				line.data.datasets[0].backgroundColor = '#ff4747';
+				line.data.datasets[0].borderColor = '#000000';
+				line.data.datasets[0].backgroundColor = map.get(last_3_symbols);
 				line.data.datasets[0].tension = 0.4;
 				line.data.datasets[0].fill = true;
 
@@ -49,4 +60,4 @@ var getData = () => {
 }
 
 getData();
-setInterval(getData, 10000);
+setInterval(getData, 5000);
