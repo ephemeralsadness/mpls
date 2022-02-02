@@ -1,6 +1,6 @@
 from flask import Flask, request, redirect, url_for, flash, render_template
 
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash
 
 from flask_login import LoginManager, login_required, login_user, logout_user
 
@@ -36,11 +36,11 @@ def login():
     if request.method == 'POST' and form.validate_on_submit():
         username, password = form.data['username'], form.data['password']
         
-        user = db.session.query('users').filter_by(username=username).first()
-        print(user.password)
+        user = db.session.query(models.Users).filter_by(username=username).first()
+        
         if user and check_password_hash(user.password, password):
             login_user(user)
-            redirect(url_for('hello_world'))
+            return redirect(url_for('hello_world'))
         else:
             flash('Incorrect login or password')
             
