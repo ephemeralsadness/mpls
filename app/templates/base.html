@@ -12,29 +12,8 @@
 
 <body>
     <section class="hero is-primary is-fullheight">
-
-        <div class="hero-head">
-            <nav class="navbar">
-                <div class="container">
-                    <div id="navbarMenuHeroA" class="navbar-menu">
-                        <div class="navbar-end">
-                            <a href="{{ url_for('hello_world') }}" class="navbar-item">
-                                Home
-                            </a>
-                            <a href="{{ url_for('login') }}" class="navbar-item">
-                                Login
-                            </a>
-                            <a href="{{ url_for('signup') }}" class="navbar-item">
-                                Sign Up
-                            </a>
-                            <a href="{{ url_for('logout') }}" class="navbar-item">
-                                Logout
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        {% block nav %}
+        {% endblock %}
 
         <div class="hero-body">
             <div class="container has-text-centered">

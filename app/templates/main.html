@@ -1,5 +1,24 @@
 {% extends "base.html" %}
 
+{% block nav %}
+<div class="hero-head">
+    <nav class="navbar">
+        <div class="container">
+            <div id="navbarMenuHeroA" class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="{{ url_for('hello_world') }}" class="navbar-item">
+                        Home
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="navbar-item">
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+{% endblock %}
+
 {% block content %}
 Hello, {{username.username}}
 {% endblock %}
