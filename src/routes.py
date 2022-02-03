@@ -69,9 +69,9 @@ def signup():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    username = request.form.get('username', '{}')
-    password = request.form.get('password', '{}')
-    data = request.form.get('data', '{}')
+    username = request.headers.get('username', '')
+    password = request.headers.get('password', '')
+    data = request.headers.get('data', '{}')
 
     user = db.session.query(Users).filter_by(username=username).first()
     if user and check_password_hash(user.password, password):
@@ -79,7 +79,7 @@ def submit():
         db.session.commit()
         return 'Added!'
     else:
-        return 'Bad!'
+        return 'Bad credentials!'
 
 
 @app.route('/plot', methods=['GET'])
