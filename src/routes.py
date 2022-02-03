@@ -85,7 +85,10 @@ def submit():
 @app.route('/plot', methods=['GET'])
 @login_required
 def plot():
-    points = db.session.query(LabelPoint).filter_by(username=current_user.username).all()
+    points = db.session.query(LabelPoint)\
+             .filter_by(username=current_user.username)\
+             .order_by(LabelPoint.x)\
+             .all()
 
     temp = {
         'data': [{
@@ -102,7 +105,8 @@ def plot():
             data[point.label] = deepcopy(temp)
         data[point.label]['data'][0]['data'].append(point.y)
         data[point.label]['data'][0]['label'] = point.label
-        data[point.label]['labels'].append(point.x)
+        x = str(datetime.fromtimestamp(point.x).strftime('%b %d %H:%M'))
+        data[point.label]['labels'].append(x)
 
     return data
 
