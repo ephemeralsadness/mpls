@@ -60,4 +60,4 @@ var getData = () => {
 }
 
 getData();
-setInterval(getData, 5000);
+setInterval(getData, 1000 * 60 * 5);
